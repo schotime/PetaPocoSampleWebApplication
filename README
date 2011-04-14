@@ -1,1 +1,12 @@
 Peta Poco Sample Application Readme
+
+- This will be a small sample application which shows how I am doing web apps on Asp.net MVC including:
+
+1. CQRS style controller interactions
+2. Spark Views including Bindings
+3. PetaPoco 
+4. FluentValidation
+5. Transaction Management
+6. IOC with Structuremap
+7. Url / Route declarations
+8..........
