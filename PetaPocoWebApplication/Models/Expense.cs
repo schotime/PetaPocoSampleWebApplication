@@ -2,8 +2,8 @@
 
 namespace PetaPocoWebApplication.Models
 {
-    [TableName("expenses")]
-    [PrimaryKey("expenseid")]
+    [TableName("Expenses")]
+    [PrimaryKey("ExpenseId")]
     public class Expense
     {
         public int ExpenseId { get; set; }

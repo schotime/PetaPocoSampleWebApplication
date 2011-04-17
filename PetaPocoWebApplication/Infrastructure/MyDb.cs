@@ -22,7 +22,7 @@ namespace PetaPocoWebApplication.Infrastructure
         public override void OnExecutingCommand(IDbCommand cmd)
         {
             // Logging
-            File.AppendAllText(HttpContext.Current.Server.MapPath("~/log.txt"), DateTime.Now + " - SQL: " + FormatCommand(cmd) + Environment.NewLine);
+            File.AppendAllText(HttpContext.Current.Server.MapPath("~/log.txt"), DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff") + " - SQL: " + FormatCommand(cmd) + Environment.NewLine);
         }
     }
 }

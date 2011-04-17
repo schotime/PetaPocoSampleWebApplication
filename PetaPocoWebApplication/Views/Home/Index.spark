@@ -1,0 +1,22 @@
+﻿<viewdata model="PetaPocoWebApplication.Controllers.HomeIndexViewModel" />
+
+<content name="title">
+    Peta Poco Sample Application
+</content>
+
+<h2>Budget between ${Model.BudgetPeriod.FromDate.ToShortDateString()} to ${Model.BudgetPeriod.ToDate.ToShortDateString()}</h2>
+
+<table id="expenses">
+    <tr>
+        <th>Description</th>
+        <th>Budget Amount</th>
+        <th>Actual Amount</th>
+        <th>Remark</th>
+    </tr>
+    <tr each="var item in Model.Expenses">
+        <td>${item.Description}</td>
+        <td class="amount">${item.BudgetAmount}</td>
+        <td class="amount">${item.ActualAmount}</td>
+        <td>${item.Remark}</td>
+    </tr>
+</table>

@@ -35,14 +35,22 @@ namespace PetaPocoWebApplication.Controllers
 				_database.Insert(period);
 			    periods.Add(period);
 
-				var expense = new Expense
-								  {
-									  BudgetPeriodId = period.BudgetPeriodId,
-									  Description = "Test Expense",
-									  BudgetAmount = 20.0m
-								  };
+			    var expense = new Expense
+			                      {
+			                          BudgetPeriodId = period.BudgetPeriodId,
+			                          Description = "Test Expense",
+			                          BudgetAmount = 20.0m
+			                      };
+
+                var expense2 = new Expense
+                {
+                    BudgetPeriodId = period.BudgetPeriodId,
+                    Description = "Extra meals",
+                    BudgetAmount = 100.0m
+                };
 
 				_database.Insert(expense);
+                _database.Insert(expense2);
 			}
 
 		    var model = new HomeIndexViewModel

@@ -38,7 +38,7 @@ namespace PetaPocoWebApplication.Infrastructure
 
             public void OnException(ExceptionContext filterContext)
             {
-                File.AppendAllText(filterContext.HttpContext.Server.MapPath("~/log.txt"), DateTime.Now + " - EXCEPTION: " + filterContext.Exception + Environment.NewLine);
+                File.AppendAllText(filterContext.HttpContext.Server.MapPath("~/log.txt"), DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff") + " - EXCEPTION: " + filterContext.Exception + Environment.NewLine);
                 if (!wasUnBound)
                     EndSession(true, true);
             }
