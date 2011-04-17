@@ -342,3 +342,7 @@ div#title
 {
     width: 6em;
 }
+
+.amount { text-align: right;  }
+
+#expenses th { font-weight: bold }

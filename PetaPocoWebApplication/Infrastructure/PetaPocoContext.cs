@@ -33,7 +33,7 @@ namespace PetaPocoWebApplication.Infrastructure
             public void OnActionExecuted(ActionExecutedContext filterContext)
             {
                 if (!wasUnBound)
-                    EndSession(false, filterContext.Controller.ViewData.ModelState.IsValid);
+                    EndSession(filterContext.Exception != null, filterContext.Controller.ViewData.ModelState.IsValid);
             }
 
             public void OnException(ExceptionContext filterContext)

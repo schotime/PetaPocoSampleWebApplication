@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using PetaPoco;
 using PetaPocoWebApplication.Infrastructure;
+using Spark;
+using Spark.Web.Mvc;
 using StructureMap;
 
 namespace PetaPocoWebApplication
@@ -38,6 +40,13 @@ namespace PetaPocoWebApplication
             ObjectFactory.Initialize(x => x.AddRegistry<PetaPocoRegistry>());
 
             Database.Mapper = new MyMapper();
+
+            var settings = new SparkSettings();
+            settings.SetAutomaticEncoding(true);
+
+            // Note: you can change the list of namespace and assembly
+            // references in Views\Shared\_global.spark
+            SparkEngineStarter.RegisterViewEngine(settings);
         }
     }
 }

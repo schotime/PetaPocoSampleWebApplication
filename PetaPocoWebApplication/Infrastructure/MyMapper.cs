@@ -9,7 +9,7 @@ namespace PetaPocoWebApplication.Infrastructure
     {
         public override bool MapPropertyToColumn(PropertyInfo pi, ref string columnName, ref bool resultColumn)
         {
-            columnName = Regex.Replace(pi.Name, "([A-Z])", "_$1").TrimStart('_');
+            //columnName = Regex.Replace(pi.Name, "([A-Z])", "_$1").TrimStart('_');
             return base.MapPropertyToColumn(pi, ref columnName, ref resultColumn);
         }
 
