@@ -11,6 +11,7 @@ namespace PetaPocoWebApplication.Infrastructure
             {
                 x.TheCallingAssembly();
                 x.WithDefaultConventions();
+                x.ConnectImplementationsToTypesClosing(typeof (IQueryHandler<>));
             });
 
             For<IDatabaseQuery>().HttpContextScoped().Use(GetDatabase);
@@ -18,7 +19,7 @@ namespace PetaPocoWebApplication.Infrastructure
 
         }
 
-        private static IDatabase GetDatabase()
+        public static IDatabase GetDatabase()
         {
             return new MyDb("Peta");
         }

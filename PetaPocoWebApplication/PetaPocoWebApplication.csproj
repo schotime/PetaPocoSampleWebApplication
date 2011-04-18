@@ -79,13 +79,17 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Handlers\HomeIndexHandler.cs" />
+    <Compile Include="Infrastructure\IQueryHandler.cs" />
     <Compile Include="Infrastructure\MyDb.cs" />
     <Compile Include="Infrastructure\MyMapper.cs" />
+    <Compile Include="Infrastructure\ObjectResolver.cs" />
     <Compile Include="Infrastructure\PetaPocoContext.cs" />
     <Compile Include="Infrastructure\FilterUsing.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\QueryInvoker.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Infrastructure\PetaPocoControllerFactory.cs" />
     <Compile Include="Infrastructure\PetaPocoRegistry.cs" />
@@ -107,7 +111,6 @@
     <Content Include="Views\Account\LogOn.aspx" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Home\About.aspx" />
-    <Content Include="Views\Home\Index2.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
     <Content Include="Views\Shared\Site.Master" />

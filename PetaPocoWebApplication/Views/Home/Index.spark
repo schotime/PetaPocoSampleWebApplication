@@ -1,4 +1,4 @@
-﻿<viewdata model="PetaPocoWebApplication.Controllers.HomeIndexViewModel" />
+﻿<viewdata model="PetaPocoWebApplication.Handlers.HomeIndexViewModel" />
 
 <content name="title">
     Peta Poco Sample Application

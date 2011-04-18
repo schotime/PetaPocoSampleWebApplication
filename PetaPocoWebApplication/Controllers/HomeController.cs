@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PetaPoco;
+using PetaPocoWebApplication.Handlers;
 using PetaPocoWebApplication.Infrastructure;
 using PetaPocoWebApplication.Models;
 
@@ -13,54 +14,17 @@ namespace PetaPocoWebApplication.Controllers
 	[PetaPocoContext]
 	public class HomeController : Controller
 	{
-		private readonly IDatabase _database;
+	    private readonly IQueryInvoker _queryInvoker;
 
-		public HomeController(IDatabase database)
+		public HomeController(IQueryInvoker queryInvoker)
 		{
-			_database = database;
+		    _queryInvoker = queryInvoker;
 		}
 
-		public ActionResult Index()
-		{
-			var periods = _database.Fetch<BudgetPeriod>();
-			if (!periods.Any())
-			{
-				var period = new BudgetPeriod
-								 {
-									 Description = "April",
-									 FromDate = new DateTime(2011, 4, 1),
-									 ToDate = new DateTime(2011, 4, 30)
-								 };
-
-				_database.Insert(period);
-			    periods.Add(period);
-
-			    var expense = new Expense
-			                      {
-			                          BudgetPeriodId = period.BudgetPeriodId,
-			                          Description = "Test Expense",
-			                          BudgetAmount = 20.0m
-			                      };
-
-                var expense2 = new Expense
-                {
-                    BudgetPeriodId = period.BudgetPeriodId,
-                    Description = "Extra meals",
-                    BudgetAmount = 100.0m
-                };
-
-				_database.Insert(expense);
-                _database.Insert(expense2);
-			}
-
-		    var model = new HomeIndexViewModel
-		                    {
-		                        Message = "Welcome to PetaPoco",
-		                        BudgetPeriod = periods.First(),
-		                        Expenses = _database.Fetch<Expense>("where budgetperiodid = @0", periods.First().BudgetPeriodId)
-		                    };
-
-			return View(model);
+	    public ActionResult Index()
+	    {
+	        var viewmodel = _queryInvoker.Invoke<HomeIndexViewModel>();
+			return View(viewmodel);
 		}
 		
 		public ActionResult About()
@@ -69,11 +33,4 @@ namespace PetaPocoWebApplication.Controllers
 		}
 	}
 
-	public class HomeIndexViewModel
-	{
-		public string Message { get; set; }
-
-		public BudgetPeriod BudgetPeriod { get; set; }
-		public IList<Expense> Expenses { get; set; }
-	}
 }
