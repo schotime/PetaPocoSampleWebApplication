@@ -12,5 +12,8 @@ namespace PetaPocoWebApplication.Models
         public decimal BudgetAmount { get; set; }
         public decimal ActualAmount { get; set; }
         public string Remark { get; set; }
+        
+        [VersionColumn]
+        public int Version { get; set; }
     }
 }
