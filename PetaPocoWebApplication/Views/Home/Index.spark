@@ -12,11 +12,27 @@
         <th>Budget Amount</th>
         <th>Actual Amount</th>
         <th>Remark</th>
+        <th>Actions</th>
     </tr>
     <tr each="var item in Model.Expenses">
         <td>${item.Description}</td>
         <td class="amount">${item.BudgetAmount}</td>
         <td class="amount">${item.ActualAmount}</td>
         <td>${item.Remark}</td>
+        <td>
+          <Form action="Delete">
+            <input name="ExpenseId" type="hidden" value="${item.ExpenseId}" />
+            <a href="#" class="linksubmit">Delete</a>
+          </Form>                   
+        </td>
     </tr>
 </table>
+
+<script>
+  $(function() {
+    $("a.linksubmit").click(function(e) {
+      $(this).closest("form").submit();
+      e.preventDefault();
+    });
+  });
+</script>

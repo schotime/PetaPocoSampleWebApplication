@@ -1,5 +1,8 @@
 ﻿<use namespace="System" />
 <use namespace="System.Web.Mvc"/>
 <use namespace="System.Web.Mvc.Html"/>
+<use namespace="System.Web.Routing"/>
+<use namespace="System.Collections.Generic"/>
 
 <use namespace="PetaPocoWebApplication.Controllers" />
+<use namespace="PetaPocoWebApplication.Handlers" />

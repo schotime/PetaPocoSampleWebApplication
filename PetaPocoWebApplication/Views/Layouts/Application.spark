@@ -3,9 +3,13 @@
 <head>
     <title><use content="title" /></title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
 </head>
 
 <body>
+  <div if="TempData['__flash']!=null" id="flash" style="background: orange; font-weight: bold; color: white; font-size: 20px; padding: 5px; position: absolute; top: 0px; display: none">
+    ${TempData["__flash"]}
+  </div>
     <div class="page">
 
         <div id="header">
@@ -34,5 +38,12 @@
             </div>
         </div>
     </div>
+  <script>
+    $(function() {
+      $("#flash").slideDown();
+      setTimeout(function() { $("#flash").slideUp() }, 4000);
+    });
+    
+  </script>
 </body>
 </html>

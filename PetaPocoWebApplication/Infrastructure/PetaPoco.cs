@@ -1057,13 +1057,13 @@ namespace PetaPoco
 						    if (i.Value.ResultColumn)
 						        continue;
 
-						    object val = i.Value.PropertyInfo.GetValue(poco, null);
+						    object value = i.Value.PropertyInfo.GetValue(poco, null);
 
 						    if (i.Value.VersionColumn)
 						    {
 						        versionName = i.Key;
-                                versionValue = val;
-						        val = Convert.ToInt64(val) + 1;
+                                versionValue = value;
+						        value = Convert.ToInt64(value) + 1;
 						    }
 
 					        // Build the sql
@@ -1072,7 +1072,7 @@ namespace PetaPoco
 							sb.AppendFormat("{0} = {1}{2}", EscapeSqlIdentifier(i.Key), _paramPrefix, index++);
 
 							// Store the parameter in the command
-                            AddParam(cmd, val, _paramPrefix);
+                            AddParam(cmd, value, _paramPrefix);
 						}
 
 					    cmd.CommandText = string.Format("UPDATE {0} SET {1} WHERE {2}",
@@ -1183,19 +1183,20 @@ namespace PetaPoco
 		public int Delete(string tableName, string primaryKeyName, object poco, object primaryKeyValue)
 		{
             var primaryKeyValuePairs = GetPrimaryKeyValues(primaryKeyName, primaryKeyValue);
-
 			// If primary key value not specified, pick it up from the object
-			var pd = PocoData.ForObject(poco,primaryKeyName);
-		    foreach (var i in pd.Columns)
-		    {
-                if (primaryKeyValue == null && primaryKeyValuePairs.ContainsKey(i.Key))
+            if (primaryKeyValue == null)
+            {
+                var pd = PocoData.ForObject(poco, primaryKeyName);
+                foreach (var i in pd.Columns)
                 {
-                    primaryKeyValuePairs[i.Key] = i.Value.PropertyInfo.GetValue(poco, null);
-                    continue;
-                }
-		    }
- 
-			// Do it
+                    if (primaryKeyValuePairs.ContainsKey(i.Key))
+                    {
+                        primaryKeyValuePairs[i.Key] = i.Value.PropertyInfo.GetValue(poco, null);
+                    }   
+	            }
+            }
+
+		    // Do it
 		    var index = 0;
 			var sql = string.Format("DELETE FROM {0} WHERE {1}", tableName, BuildPrimaryKeySql(primaryKeyValuePairs, ref index));
 			return Execute(sql, primaryKeyValuePairs.Select(x=>x.Value).ToArray());
@@ -1576,7 +1577,15 @@ namespace PetaPoco
 #endif
 						if (typeof(T).IsValueType || typeof(T)==typeof(string) || typeof(T)==typeof(byte[]))
 						{
-							return (rdr) => (T)rdr.GetValue(0);
+						    return (rdr) =>
+						    {
+						        Func<object, object> converter = null;
+						        if (ForceDateTimesToUtc && rdr.GetFieldType(0) == typeof (DateTime) && (typeof (T) == typeof (DateTime) || typeof (T) == typeof (DateTime?)))
+						        {
+						            converter = src => { return new DateTime(((DateTime) src).Ticks, DateTimeKind.Utc); };
+						        }
+						        return (T) (rdr.IsDBNull(0) ? null : (converter != null ? converter(rdr.GetValue(0)) : rdr.GetValue(0)));
+						    };
 						}
 						else
 						{

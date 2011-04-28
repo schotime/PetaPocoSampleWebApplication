@@ -78,7 +78,11 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Infrastructure\PetaController.cs" />
+    <Compile Include="Handlers\HomeDeleteHandler.cs" />
     <Compile Include="Handlers\HomeIndexHandler.cs" />
+    <Compile Include="Infrastructure\ICommandHandler.cs" />
+    <Compile Include="Infrastructure\CommandInvoker.cs" />
     <Compile Include="Infrastructure\IQueryHandler.cs" />
     <Compile Include="Infrastructure\MyDb.cs" />
     <Compile Include="Infrastructure\MyMapper.cs" />
@@ -100,6 +104,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <None Include="Views\Home\Index.spark" />
+    <Content Include="Views\Bindings.xml" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-1.4.1.js" />

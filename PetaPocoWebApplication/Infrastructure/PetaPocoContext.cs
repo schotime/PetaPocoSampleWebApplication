@@ -15,21 +15,18 @@ namespace PetaPocoWebApplication.Infrastructure
         public class PetaPocoFilter : IActionFilter, IExceptionFilter
         {
             private readonly IDatabase _database;
-            private readonly IDatabaseQuery _databaseQuery;
 
             private bool wasBound;
             private bool wasUnBound;
 
-            public PetaPocoFilter(IDatabase database, IDatabaseQuery databaseQuery)
+            public PetaPocoFilter(IDatabase database)
             {
                 _database = database;
-                _databaseQuery = databaseQuery;
             }
 
             public void OnActionExecuting(ActionExecutingContext filterContext)
             {
                 _database.BeginTransaction();
-                _databaseQuery.OpenSharedConnection();
                 wasBound = true;
             }
 
@@ -55,8 +52,6 @@ namespace PetaPocoWebApplication.Infrastructure
                     else
                         _database.CompleteTransaction();
 
-                    _databaseQuery.CloseSharedConnection();
-                    
                     wasUnBound = false;
                 }
             }

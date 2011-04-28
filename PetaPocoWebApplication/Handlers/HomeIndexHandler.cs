@@ -23,6 +23,7 @@ namespace PetaPocoWebApplication.Handlers
             viewmodel.BudgetPeriod = _databaseQuery.First<BudgetPeriod>("");
             viewmodel.Expenses = _databaseQuery.Fetch<Expense>("where BudgetPeriodId = @BudgetPeriodId",
                                                                viewmodel.BudgetPeriod);
+
         }
     }
 

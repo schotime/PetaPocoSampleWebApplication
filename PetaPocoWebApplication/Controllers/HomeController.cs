@@ -12,13 +12,15 @@ namespace PetaPocoWebApplication.Controllers
 {
 	[HandleError]
 	[PetaPocoContext]
-	public class HomeController : Controller
+    public class HomeController : PetaController
 	{
 	    private readonly IQueryInvoker _queryInvoker;
+	    private readonly ICommandInvoker _commandInvoker;
 
-		public HomeController(IQueryInvoker queryInvoker)
+	    public HomeController(IQueryInvoker queryInvoker, ICommandInvoker commandInvoker)
 		{
 		    _queryInvoker = queryInvoker;
+		    _commandInvoker = commandInvoker;
 		}
 
 	    public ActionResult Index()
@@ -26,11 +28,20 @@ namespace PetaPocoWebApplication.Controllers
 	        var viewmodel = _queryInvoker.Invoke<HomeIndexViewModel>();
 			return View(viewmodel);
 		}
+
+        [HttpPost]
+        public ActionResult Delete(HomeDeleteInputModel inputModel)
+        {
+            var commandResult = _commandInvoker.Invoke(inputModel);
+            if (commandResult.Success)
+                Flash("Successfully deleted");
+
+            return RedirectToAction("Index");
+        }
 		
 		public ActionResult About()
 		{
 			return View();
 		}
 	}
-
 }
