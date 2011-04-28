@@ -343,6 +343,25 @@ div#title
     width: 6em;
 }
 
+#flash {
+    background: orange; 
+    font-weight: bold; 
+    color: white; 
+    left: 50%; 
+    margin-left: -100px; 
+    width: 200px; 
+    text-align: center; 
+    font-size: 16px; 
+    padding: 4px; 
+    position: absolute; 
+    top: 0px; 
+    display: none;
+    border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+}
+
 .amount { text-align: right;  }
 
 #expenses th { font-weight: bold }

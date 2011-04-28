@@ -8,7 +8,7 @@ using PetaPocoWebApplication.Models;
 
 namespace PetaPocoWebApplication.Handlers
 {
-    public class HomeDeleteHandler : ICommandHandler<HomeDeleteInputModel>
+    public class HomeDeleteHandler : ICommandHandler<HomeDeleteInputModel, bool>
     {
         private readonly IDatabase _database;
 
@@ -17,11 +17,12 @@ namespace PetaPocoWebApplication.Handlers
             _database = database;
         }
 
-        public CommandResult Handle(HomeDeleteInputModel inputModel)
+        public bool Handle(HomeDeleteInputModel inputModel)
         {
             _database.Delete<Expense>(inputModel.ExpenseId);
-            return new CommandResult { Success = true };
+            return true;
         }
+
     }
 
     public class HomeDeleteInputModel

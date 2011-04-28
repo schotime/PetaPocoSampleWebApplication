@@ -7,11 +7,12 @@
 </head>
 
 <body>
-  <div if="TempData['__flash']!=null" id="flash" style="background: orange; font-weight: bold; color: white; font-size: 20px; padding: 5px; position: absolute; top: 0px; display: none">
-    ${TempData["__flash"]}
-  </div>
-    <div class="page">
 
+    <div class="page">
+		
+	  <div if="TempData['__flash']!=null" id="flash">
+		${TempData["__flash"]}
+	  </div>
         <div id="header">
             <div id="title">
                 <h1>Budget Helper</h1>

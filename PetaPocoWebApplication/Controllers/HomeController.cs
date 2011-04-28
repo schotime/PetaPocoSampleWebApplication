@@ -14,26 +14,24 @@ namespace PetaPocoWebApplication.Controllers
 	[PetaPocoContext]
     public class HomeController : PetaController
 	{
-	    private readonly IQueryInvoker _queryInvoker;
-	    private readonly ICommandInvoker _commandInvoker;
+	    private readonly IInvoker _invoker;
 
-	    public HomeController(IQueryInvoker queryInvoker, ICommandInvoker commandInvoker)
-		{
-		    _queryInvoker = queryInvoker;
-		    _commandInvoker = commandInvoker;
-		}
+        public HomeController(IInvoker invoker)
+        {
+            _invoker = invoker;
+        }
 
 	    public ActionResult Index()
 	    {
-	        var viewmodel = _queryInvoker.Invoke<HomeIndexViewModel>();
+            var viewmodel = _invoker.InvokeQuery<HomeIndexViewModel>();
 			return View(viewmodel);
 		}
 
         [HttpPost]
         public ActionResult Delete(HomeDeleteInputModel inputModel)
         {
-            var commandResult = _commandInvoker.Invoke(inputModel);
-            if (commandResult.Success)
+            var commandResult = _invoker.InvokeCommand<HomeDeleteInputModel, bool>(inputModel);
+            if (commandResult)
                 Flash("Successfully deleted");
 
             return RedirectToAction("Index");

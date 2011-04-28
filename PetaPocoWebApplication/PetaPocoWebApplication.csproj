@@ -78,11 +78,12 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Infrastructure\IInvoker.cs" />
     <Compile Include="Infrastructure\PetaController.cs" />
     <Compile Include="Handlers\HomeDeleteHandler.cs" />
     <Compile Include="Handlers\HomeIndexHandler.cs" />
     <Compile Include="Infrastructure\ICommandHandler.cs" />
-    <Compile Include="Infrastructure\CommandInvoker.cs" />
+    <Compile Include="Infrastructure\Invoker.cs" />
     <Compile Include="Infrastructure\IQueryHandler.cs" />
     <Compile Include="Infrastructure\MyDb.cs" />
     <Compile Include="Infrastructure\MyMapper.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\QueryInvoker.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Infrastructure\PetaPocoControllerFactory.cs" />
     <Compile Include="Infrastructure\PetaPocoRegistry.cs" />

@@ -2,6 +2,10 @@
 {
     public interface ICommandHandler<TInputModel>
     {
-        CommandResult Handle(TInputModel inputModel);
+        void Handle(TInputModel inputModel);
+    }
+    public interface ICommandHandler<TInputModel, TResultModel>
+    {
+        TResultModel Handle(TInputModel inputModel);
     }
 }
