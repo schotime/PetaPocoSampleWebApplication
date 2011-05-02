@@ -19,7 +19,7 @@
             </div>
               
             <div id="logindisplay">
-                <% Html.RenderPartial("LogOnUserControl"); %>
+                <RenderPartial name="LogOnUserControl" />
             </div> 
             
             <div id="menucontainer">
@@ -41,10 +41,9 @@
     </div>
   <script>
     $(function() {
-      $("#flash").slideDown();
-      setTimeout(function() { $("#flash").slideUp() }, 4000);
+      setTimeout(function() { $("#flash").slideDown(); }, 300);
+      setTimeout(function() { $("#flash").slideUp(); }, 4000);
     });
-    
   </script>
 </body>
 </html>

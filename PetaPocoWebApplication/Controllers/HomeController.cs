@@ -7,6 +7,7 @@ using PetaPoco;
 using PetaPocoWebApplication.Handlers;
 using PetaPocoWebApplication.Infrastructure;
 using PetaPocoWebApplication.Models;
+using System.Diagnostics;
 
 namespace PetaPocoWebApplication.Controllers
 {

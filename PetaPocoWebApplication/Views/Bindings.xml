@@ -47,6 +47,7 @@
     <end># }</end>
   </element>
 
+  <element name="RenderPartial"># Html.RenderPartial("@name");</element>
   <element name="RenderPartial"># Html.RenderPartial("@name", @model);</element>
     
 </bindings>
