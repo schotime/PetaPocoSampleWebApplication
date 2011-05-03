@@ -21,8 +21,11 @@ namespace PetaPocoWebApplication.Handlers
         {
             viewmodel.Message = "Welcome to PetaPoco";
             viewmodel.BudgetPeriod = _databaseQuery.First<BudgetPeriod>("");
-            viewmodel.Expenses = _databaseQuery.Fetch<Expense>("where BudgetPeriodId = @BudgetPeriodId",
-                                                              viewmodel.BudgetPeriod);
+            viewmodel.Expenses = _databaseQuery
+                .Fetch<Expense>("where BudgetPeriodId = @0", viewmodel.BudgetPeriod.BudgetPeriodId)
+                .OrderBy(x => x.Description)
+                .ToList();
+
 
         }
     }

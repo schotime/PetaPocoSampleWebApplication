@@ -11,8 +11,6 @@ using System.Diagnostics;
 
 namespace PetaPocoWebApplication.Controllers
 {
-	[HandleError]
-	[PetaPocoContext]
     public class HomeController : PetaController
 	{
 	    private readonly IInvoker _invoker;
@@ -25,7 +23,7 @@ namespace PetaPocoWebApplication.Controllers
 	    public ActionResult Index()
 	    {
             var viewmodel = _invoker.InvokeQuery<HomeIndexViewModel>();
-			return View(viewmodel);
+			return View("Index", viewmodel);
 		}
 
         [HttpPost]
@@ -36,6 +34,21 @@ namespace PetaPocoWebApplication.Controllers
                 Flash("Successfully deleted");
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Add(HomeAddInputModel inputModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _invoker.InvokeCommand(inputModel);
+                Flash("Successfully added");
+                return RedirectToAction("Index");
+            }
+
+            Flash("Data Invalid");
+
+            return Index();
         }
 		
 		public ActionResult About()

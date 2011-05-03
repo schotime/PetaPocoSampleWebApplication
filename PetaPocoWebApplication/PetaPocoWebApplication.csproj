@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Handlers\HomeAddHandler.cs" />
     <Compile Include="Infrastructure\PetaController.cs" />
     <Compile Include="Handlers\HomeDeleteHandler.cs" />
     <Compile Include="Handlers\HomeIndexHandler.cs" />
@@ -93,7 +94,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\PetaTimingHelper.cs" />
+    <Compile Include="Infrastructure\PetaTimingAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Infrastructure\PetaPocoControllerFactory.cs" />
     <Compile Include="Infrastructure\PetaPocoRegistry.cs" />

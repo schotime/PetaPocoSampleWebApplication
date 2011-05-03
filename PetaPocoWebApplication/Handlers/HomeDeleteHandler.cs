@@ -19,8 +19,8 @@ namespace PetaPocoWebApplication.Handlers
 
         public bool Handle(HomeDeleteInputModel inputModel)
         {
-            _database.Delete<Expense>(inputModel.ExpenseId);
-            return true;
+            var i = _database.Delete<Expense>(inputModel.ExpenseId);
+            return i == 1;
         }
 
     }

@@ -9,15 +9,16 @@
   <element name="ValidationMessage">Html.ValidationMessageFor(m => m.@For, "child::*", new Dictionary&lt;string,object&gt;{{"@*"}})</element>
   <element name="ValidationMessage">Html.ValidationMessageFor(m => m.@For, "@Message", new Dictionary&lt;string,object&gt;{{"@*"}})</element>
   <element name="ValidationMessage">Html.ValidationMessageFor(m => m.@For, "", new Dictionary&lt;string,object&gt;{{"@*"}})</element>
-  <element name="ValidationMessage">Html.ValidationMessage("@Message")</element>
-
+  <element name="ValidationMessage">Html.ValidationMessage("@Name", "child::*")</element>
+  <element name="ValidationMessage">Html.ValidationMessage("@Name")</element>
+  
   <element name="Label">Html.LabelFor(m => m.@For)</element>
   <element name="Label">Html.Label("@Name")</element>
   <element name="Hidden">Html.HiddenFor(m => m.@For)</element>
   <element name="Password">Html.PasswordFor(m => m.@For, new Dictionary&lt;string,object&gt;{{"@*"}})</element>
   <element name="TextBox">Html.TextBoxFor(m => m.@For, new Dictionary&lt;string,object&gt;{{"@*"}})</element>
-  <element name="TextBox">Html.TextBox("@Name", string.Join(", ", @Items), new Dictionary&lt;string,object&gt;{{"@*"}})</element>
-  <element name="TextBox">Html.TextBox("@Name", string.Join(", ", @Items))</element>
+  <element name="TextBox">Html.TextBox("@Name", "child::*", new Dictionary&lt;string,object&gt;{{"@*"}})</element>
+  <element name="TextBox">Html.TextBox("@Name")</element>
   <element name="CheckBox">Html.CheckBoxFor(m => m.@For, new Dictionary&lt;string,object&gt;{{"@*"}})</element>
   <element name="DropDown">Html.DropDownListFor(m => m.@For, @Items, new Dictionary&lt;string,object&gt;{{"@*"}})</element>
 

@@ -16,11 +16,6 @@ namespace PetaPocoWebApplication.Infrastructure
         public MyDb(string connectionString, string providerName) : base(connectionString, providerName) { }
         public MyDb(string connectionString, DbProviderFactory dbProviderFactory) : base(connectionString, dbProviderFactory) { }
 
-        public override void OnException(Exception x)
-        {
-            // Sql Exception Logging
-        }
-
         Stopwatch sw = new Stopwatch();
         private IDbCommand currentCommand;
 
@@ -28,21 +23,27 @@ namespace PetaPocoWebApplication.Infrastructure
         {
             // Logging
             //File.AppendAllText(HttpContext.Current.Server.MapPath("~/log.txt"), DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss.fff") + " - SQL: " + FormatCommand(cmd) + Environment.NewLine);
-            currentCommand = cmd;
-            sw.Reset();
-            sw.Start();
+            if (HttpContext.Current.IsDebuggingEnabled)
+            {
+                currentCommand = cmd;
+                sw.Reset();
+                sw.Start();
+            }
         }
 
         public override void OnExecutedCommand(IDbCommand cmd)
         {
-            sw.Stop();
-            if (currentCommand == cmd)
+            if (HttpContext.Current.IsDebuggingEnabled)
             {
-                CurrentRequestTimings.Add(new PetaTiming
+                sw.Stop();
+                if (currentCommand == cmd)
                 {
-                    Time = sw.ElapsedMilliseconds,
-                    Sql = FormatCommand(cmd).Replace("\r\n\r\n"," | ").Replace("\r\n",", ")
-                });
+                    CurrentRequestTimings.Add(new PetaTiming
+                    {
+                        Time = sw.ElapsedMilliseconds,
+                        Sql = FormatCommand(cmd)
+                    });
+                }
             }
         }
 

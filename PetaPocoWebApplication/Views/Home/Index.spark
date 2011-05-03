@@ -4,6 +4,8 @@
     Peta Poco Sample Application
 </content>
 
+<ValidationSummary></ValidationSummary>
+
 <h2>Budget between ${Model.BudgetPeriod.FromDate.ToShortDateString()} and ${Model.BudgetPeriod.ToDate.ToShortDateString()}</h2>
 
 <table id="expenses">
@@ -26,7 +28,36 @@
           </Form>                   
         </td>
     </tr>
+
 </table>
+<h2>Add New</h2>
+<Form action="Add">
+  <table>
+  <tr>
+    <td>Description:</td>
+    <td>
+      <TextBox Name="Description"></TextBox>
+      <ValidationMessage Name="Description">*</ValidationMessage>
+    </td>
+  </tr>
+  <tr>
+    <td>Budget Amount:</td>
+    <td>
+      <TextBox Name="BudgetAmount"></TextBox>
+      <ValidationMessage Name="BudgetAmount">*</ValidationMessage>
+    </td>
+    
+  </tr>
+    <tr>
+      <td colspan="100%" style="text-align: right">
+        <input name="BudgetPeriodId" type="hidden" value="${Model.BudgetPeriod.BudgetPeriodId}"/>
+        <input type="submit" value="Add"/>
+      </td>
+    </tr>
+  </table>
+
+</Form>
+
 
 <script>
   $(function() {
