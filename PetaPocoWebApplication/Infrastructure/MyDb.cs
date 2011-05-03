@@ -40,7 +40,7 @@ namespace PetaPocoWebApplication.Infrastructure
                 {
                     CurrentRequestTimings.Add(new PetaTiming
                     {
-                        Time = sw.ElapsedMilliseconds,
+                        Time = sw.ElapsedTicks/10000d,
                         Sql = FormatCommand(cmd)
                     });
                 }

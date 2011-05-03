@@ -14,7 +14,7 @@ namespace PetaPocoWebApplication.Infrastructure
                 return;
 
             var list = MyDb.CurrentRequestTimings;
-            var header = string.Format("Db Timings: {0} database queries in {1}ms for this request", list.Count, list.Sum(x => x.Time));
+            var header = string.Format("Db Timings: {0} database queries in {1:0.#0}ms for this request", list.Count, list.Sum(x => x.Time));
             
             var sb = new StringBuilder();
             sb.AppendLine("<!--");
@@ -22,7 +22,7 @@ namespace PetaPocoWebApplication.Infrastructure
             sb.AppendLine(new String('-', header.Length));
             foreach (var item in list)
             {
-                sb.AppendFormat("[{0}ms] - {1}\n\n", item.Time, item.Sql);
+                sb.AppendFormat("[{0:0.#0}ms] - {1}\n\n", item.Time, item.Sql);
             }
             sb.AppendLine("-->");
 
