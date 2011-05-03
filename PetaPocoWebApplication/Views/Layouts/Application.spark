@@ -8,6 +8,8 @@
 
 <body>
 
+!{Html.ShowPetaTimings()}
+
     <div class="page">
 		
 	  <div if="TempData['__flash']!=null" id="flash">

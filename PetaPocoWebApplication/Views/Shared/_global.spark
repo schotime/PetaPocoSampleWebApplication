@@ -5,4 +5,5 @@
 <use namespace="System.Collections.Generic"/>
 
 <use namespace="PetaPocoWebApplication.Controllers" />
+<use namespace="PetaPocoWebApplication.Infrastructure" />
 <use namespace="PetaPocoWebApplication.Handlers" />

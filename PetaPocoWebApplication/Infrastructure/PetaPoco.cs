@@ -537,6 +537,7 @@ namespace PetaPoco
 
 		// Override this to log commands, or modify command before execution
 		public virtual void OnExecutingCommand(IDbCommand cmd) { }
+        public virtual void OnExecutedCommand(IDbCommand cmd) { }
 
 
 		// Execute a non-query command
@@ -554,7 +555,9 @@ namespace PetaPoco
                 {
                     using (var cmd = CreateCommand(_sharedConnection, sql))
                     {
-                        return cmd.ExecuteNonQuery();
+                        var result = cmd.ExecuteNonQuery();
+                        OnExecutedCommand(cmd);
+                        return result;
                     }
                 }
                 finally
@@ -585,6 +588,7 @@ namespace PetaPoco
                     using (var cmd = CreateCommand(_sharedConnection, sql))
                     {
                         object val = cmd.ExecuteScalar();
+                        OnExecutedCommand(cmd);
                         return (T)Convert.ChangeType(val, typeof(T));
                     }
                 }
@@ -759,6 +763,7 @@ namespace PetaPoco
                     try
                     {
                         r = cmd.ExecuteReader();
+                        OnExecutedCommand(cmd);
                     }
                     catch (Exception x)
                     {
@@ -924,6 +929,7 @@ namespace PetaPoco
 						{
 							DoPreExecute(cmd);
 							cmd.ExecuteNonQuery();
+                            OnExecutedCommand(cmd);
 							return true;
 						}
 
@@ -982,7 +988,8 @@ namespace PetaPoco
                                 id = cmd.ExecuteScalar();
                                 break;
                         }
-                        
+
+                        OnExecutedCommand(cmd);
 
 					    // Assign the ID back to the primary key property
                         if (primaryKeyName != null)
@@ -1093,6 +1100,7 @@ namespace PetaPoco
 
 						// Do it
 						var result = cmd.ExecuteNonQuery();
+                        OnExecutedCommand(cmd);
 
                         // Set Version
                         if (!string.IsNullOrEmpty(versionName)) {

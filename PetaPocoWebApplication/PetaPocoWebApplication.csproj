@@ -93,6 +93,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\PetaTimingHelper.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Infrastructure\PetaPocoControllerFactory.cs" />
     <Compile Include="Infrastructure\PetaPocoRegistry.cs" />
@@ -140,7 +141,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59159</DevelopmentServerPort>
+          <DevelopmentServerPort>53110</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

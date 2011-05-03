@@ -22,7 +22,7 @@ namespace PetaPocoWebApplication.Handlers
             viewmodel.Message = "Welcome to PetaPoco";
             viewmodel.BudgetPeriod = _databaseQuery.First<BudgetPeriod>("");
             viewmodel.Expenses = _databaseQuery.Fetch<Expense>("where BudgetPeriodId = @BudgetPeriodId",
-                                                               viewmodel.BudgetPeriod);
+                                                              viewmodel.BudgetPeriod);
 
         }
     }
@@ -30,6 +30,11 @@ namespace PetaPocoWebApplication.Handlers
 
     public class HomeIndexViewModel
     {
+        public HomeIndexViewModel()
+        {
+            Expenses = new List<Expense>();
+        }
+
         public string Message { get; set; }
 
         public BudgetPeriod BudgetPeriod { get; set; }
