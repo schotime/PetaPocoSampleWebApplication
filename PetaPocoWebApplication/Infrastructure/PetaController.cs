@@ -4,7 +4,7 @@ namespace PetaPocoWebApplication.Infrastructure
 {
     [HandleError]
     [PetaPocoContext]
-    [PetaTiming]
+    [PetaTuning]
     public class PetaController : Controller
     {
         public void Flash(string text)

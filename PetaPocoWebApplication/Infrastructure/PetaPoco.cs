@@ -1,4 +1,4 @@
-﻿/* PetaPoco - A Tiny ORMish thing for your POCO's.
+﻿/* PetaPoco v3.0.1 - A Tiny ORMish thing for your POCO's.
  * Copyright © 2011 Topten Software.  All Rights Reserved.
  * 
  * Apache License 2.0 - http://www.toptensoftware.com/petapoco/license
@@ -620,9 +620,10 @@ namespace PetaPoco
             if (!rxSelect.IsMatch(sql))
             {
                 var pd = PocoData.ForType(typeof(T));
+				var tableName = EscapeTableName(pd.TableInfo.TableName);
 				string cols = string.Join(", ", (from c in pd.QueryColumns select EscapeSqlIdentifier(c)).ToArray());
                 if (!rxFrom.IsMatch(sql))
-					sql = string.Format("SELECT {0} FROM {1} {2}", cols, EscapeSqlIdentifier(pd.TableInfo.TableName), sql);
+					sql = string.Format("SELECT {0} FROM {1} {2}", cols, tableName, sql);
                 else
 					sql = string.Format("SELECT {0} {1}", cols, sql);
             }
@@ -859,6 +860,12 @@ namespace PetaPoco
 			return Query<T>(sql).FirstOrDefault();
 		}
 
+		public string EscapeTableName(string str)
+		{
+			// Assume table names with "dot", or opening sq is already escaped
+			return str.IndexOf('.') >= 0 ? str : EscapeSqlIdentifier(str);
+		}
+
 		public string EscapeSqlIdentifier(string str)
 		{
 			switch (_dbType)
@@ -929,7 +936,7 @@ namespace PetaPoco
 						}
 
 						cmd.CommandText = string.Format("INSERT INTO {0} ({1}) VALUES ({2})",
-								EscapeSqlIdentifier(tableName),
+								EscapeTableName(tableName),
 								string.Join(",", names.ToArray()),
 								string.Join(",", values.ToArray())
 								);
@@ -1183,13 +1190,13 @@ namespace PetaPoco
 		public int Update<T>(string sql, params object[] args)
 		{
 			var pd = PocoData.ForType(typeof(T));
-			return Execute(string.Format("UPDATE {0} {1}", EscapeSqlIdentifier(pd.TableInfo.TableName), sql), args);
+			return Execute(string.Format("UPDATE {0} {1}", EscapeTableName(pd.TableInfo.TableName), sql), args);
 		}
 
 		public int Update<T>(Sql sql)
 		{
 			var pd = PocoData.ForType(typeof(T));
-			return Execute(new Sql(string.Format("UPDATE {0}", EscapeSqlIdentifier(pd.TableInfo.TableName))).Append(sql));
+			return Execute(new Sql(string.Format("UPDATE {0}", EscapeTableName(pd.TableInfo.TableName))).Append(sql));
 		}
 
 		public int Delete(string tableName, string primaryKeyName, object poco)
@@ -1236,13 +1243,13 @@ namespace PetaPoco
 		public int Delete<T>(string sql, params object[] args)
 		{
 			var pd = PocoData.ForType(typeof(T));
-			return Execute(string.Format("DELETE FROM {0} {1}", EscapeSqlIdentifier(pd.TableInfo.TableName), sql), args);
+			return Execute(string.Format("DELETE FROM {0} {1}", EscapeTableName(pd.TableInfo.TableName), sql), args);
 		}
 
 		public int Delete<T>(Sql sql)
 		{
 			var pd = PocoData.ForType(typeof(T));
-			return Execute(new Sql(string.Format("DELETE FROM {0}", EscapeSqlIdentifier(pd.TableInfo.TableName))).Append(sql));
+			return Execute(new Sql(string.Format("DELETE FROM {0}", EscapeTableName(pd.TableInfo.TableName))).Append(sql));
 		}
 
 		// Check if a poco represents a new record

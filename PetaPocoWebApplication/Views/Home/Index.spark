@@ -6,6 +6,7 @@
 
 <ValidationSummary></ValidationSummary>
 
+${Model.Message}
 <h2>Budget between ${Model.BudgetPeriod.FromDate.ToShortDateString()} and ${Model.BudgetPeriod.ToDate.ToShortDateString()}</h2>
 
 <table id="expenses">

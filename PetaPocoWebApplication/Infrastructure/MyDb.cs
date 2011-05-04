@@ -38,31 +38,35 @@ namespace PetaPocoWebApplication.Infrastructure
                 sw.Stop();
                 if (currentCommand == cmd)
                 {
-                    CurrentRequestTimings.Add(new PetaTiming
+                    CurrentRequestTimings.Add(new PetaTuning
                     {
                         Time = sw.ElapsedTicks/10000d,
-                        Sql = FormatCommand(cmd)
+                        FormattedSql = FormatCommand(cmd),
+                        Sql = cmd.CommandText,
+                        Parameters = cmd.Parameters
                     });
                 }
             }
         }
 
-        public static List<PetaTiming> CurrentRequestTimings
+        public static List<PetaTuning> CurrentRequestTimings
         {
             get
             {
-                const string petatimings = "__petaTimings";
+                const string petatimings = "__petaTunings";
                 if (HttpContext.Current.Items[petatimings] == null)
-                    HttpContext.Current.Items[petatimings] = new List<PetaTiming>();
-                return (List<PetaTiming>)HttpContext.Current.Items[petatimings];
+                    HttpContext.Current.Items[petatimings] = new List<PetaTuning>();
+                return (List<PetaTuning>)HttpContext.Current.Items[petatimings];
             } 
         }
 
     }
 
-    public class PetaTiming
+    public class PetaTuning
     {
         public double Time { get; set; }
+        public string FormattedSql { get; set; }
         public string Sql { get; set; }
+        public IDataParameterCollection Parameters { get; set; }
     }
 }
