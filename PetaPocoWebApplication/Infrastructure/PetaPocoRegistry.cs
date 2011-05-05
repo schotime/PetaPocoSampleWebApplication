@@ -11,10 +11,12 @@ namespace PetaPocoWebApplication.Infrastructure
             {
                 x.TheCallingAssembly();
                 x.WithDefaultConventions();
-                x.ConnectImplementationsToTypesClosing(typeof(IQueryHandler<>));
+                //x.ConnectImplementationsToTypesClosing(typeof(IQueryHandler<>));
                 x.ConnectImplementationsToTypesClosing(typeof(IQueryHandler<,>));
                 x.ConnectImplementationsToTypesClosing(typeof(ICommandHandler<>));
                 x.ConnectImplementationsToTypesClosing(typeof(ICommandHandler<,>));
+
+                x.AddAllTypesOf(typeof (IQueryHandler)).NameBy(y => y.Name.ToLowerInvariant());
             });
 
             For<IDatabase>().HttpContextScoped().Use(GetDatabase);

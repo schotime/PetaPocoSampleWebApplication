@@ -44,10 +44,8 @@ namespace PetaPocoWebApplication.Infrastructure
 
         public TViewModel InvokeQuery<TInputModel, TViewModel>(TInputModel inputModel) where TViewModel : new()
         {
-            var viewmodel = new TViewModel();
             var handler = _objectResolver.Resolve<IQueryHandler<TViewModel, TInputModel>>();
-            handler.Handle(inputModel, viewmodel);
-            return viewmodel;
+            return (TViewModel)handler.Handle(inputModel);
         }
     }
 

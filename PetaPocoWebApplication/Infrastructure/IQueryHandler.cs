@@ -1,11 +1,16 @@
 ﻿namespace PetaPocoWebApplication.Infrastructure
 {
-    public interface IQueryHandler<TViewModel>
+    public interface IQueryHandler<TViewModel> : IQueryHandler
     {
-        void Handle(TViewModel viewmodel);
+        TViewModel Handle();
     }
-    public interface IQueryHandler<TInputModel, TViewModel>
+    public interface IQueryHandler<TInputModel, TViewModel> : IQueryHandler
     {
-        void Handle(TViewModel viewmodel, TInputModel inputmodel);
+        TViewModel Handle(TInputModel inputmodel);
+    }
+    public interface IQueryHandler
+    {
+        object Handle();
+        object Handle(object inputmodel);
     }
 }

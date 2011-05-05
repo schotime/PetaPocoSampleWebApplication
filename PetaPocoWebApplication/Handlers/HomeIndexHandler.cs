@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PetaPoco;
+using PetaPocoWebApplication.Controllers;
 using PetaPocoWebApplication.Infrastructure;
 using PetaPocoWebApplication.Models;
 
 namespace PetaPocoWebApplication.Handlers
 {
-    public class HomeIndexHandler : IQueryHandler<HomeIndexViewModel>
+    public class HomeIndexHandler : QueryHandler<HomeIndexViewModel>
     {
         private readonly IDatabaseQuery _databaseQuery;
 
@@ -17,8 +18,9 @@ namespace PetaPocoWebApplication.Handlers
             _databaseQuery = databaseQuery;
         }
 
-        public void Handle(HomeIndexViewModel viewmodel)
+        public override HomeIndexViewModel Handle()
         {
+            var viewmodel = new HomeIndexViewModel();
             viewmodel.Message = "Welcome to PetaPoco";
             viewmodel.BudgetPeriod = _databaseQuery.First<BudgetPeriod>("");
             viewmodel.Expenses = _databaseQuery
@@ -26,7 +28,7 @@ namespace PetaPocoWebApplication.Handlers
                 .OrderBy(x => x.Description)
                 .ToList();
 
-
+            return viewmodel;
         }
     }
 

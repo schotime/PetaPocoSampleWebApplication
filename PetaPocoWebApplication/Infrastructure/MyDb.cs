@@ -9,12 +9,20 @@ using PetaPoco;
 
 namespace PetaPocoWebApplication.Infrastructure
 {
-    public class MyDb : Database
+    public class MyDb : DatabaseWithLogging
     {
         public MyDb(IDbConnection connection) : base(connection) { }
         public MyDb(string connectionStringName) : base(connectionStringName) { }
         public MyDb(string connectionString, string providerName) : base(connectionString, providerName) { }
         public MyDb(string connectionString, DbProviderFactory dbProviderFactory) : base(connectionString, dbProviderFactory) { }
+    }
+
+    public class DatabaseWithLogging : Database
+    {
+        public DatabaseWithLogging(IDbConnection connection) : base(connection) { }
+        public DatabaseWithLogging(string connectionStringName) : base(connectionStringName) { }
+        public DatabaseWithLogging(string connectionString, string providerName) : base(connectionString, providerName) { }
+        public DatabaseWithLogging(string connectionString, DbProviderFactory dbProviderFactory) : base(connectionString, dbProviderFactory) { }
 
         Stopwatch sw = new Stopwatch();
         private IDbCommand currentCommand;
@@ -40,7 +48,7 @@ namespace PetaPocoWebApplication.Infrastructure
                 {
                     CurrentRequestTimings.Add(new PetaTuning
                     {
-                        Time = sw.ElapsedTicks/10000d,
+                        Time = sw.ElapsedTicks / 10000d,
                         FormattedSql = FormatCommand(cmd),
                         Sql = cmd.CommandText,
                         Parameters = cmd.Parameters

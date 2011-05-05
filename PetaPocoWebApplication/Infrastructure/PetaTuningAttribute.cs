@@ -20,7 +20,7 @@ namespace PetaPocoWebApplication.Infrastructure
             if (!filterContext.HttpContext.IsDebuggingEnabled)  
                 return;
 
-            var list = MyDb.CurrentRequestTimings;
+            var list = DatabaseWithLogging.CurrentRequestTimings;
             var sb = new StringBuilder();
             sb.AppendLine("<!--");
 
